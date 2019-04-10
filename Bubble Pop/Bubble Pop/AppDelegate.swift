@@ -45,6 +45,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
+    
+    //Save
+    func savePlayer(name: String) {
+        let entity = NSEntityDescription.entity(forEntityName: "Player", in: persistentContainer.viewContext)
+        
+        let newPlayer = NSManagedObject(entity: entity!, insertInto: persistentContainer.viewContext)
+        newPlayer.setValue(name, forKey: "name")
+        self.saveContext()
+    }
+    
+    //Retrieve
+    func getPlayers() -> [Player] {
+        let context = self.persistentContainer.viewContext
+        
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+        
+        do {
+            let fetchedResults = try context.fetch(fetch) as! [Player]
+            return fetchedResults
+        } catch {
+            fatalError("Failed to fetch students")
+        }
+    }
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*

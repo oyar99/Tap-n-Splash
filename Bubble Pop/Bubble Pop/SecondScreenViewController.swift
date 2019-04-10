@@ -16,6 +16,13 @@ class SecondScreenViewController: UIViewController {
         super.viewDidLoad()
         
         print(self.message)
+        //Access persistent data
+        appDelegate.savePlayer(name: self.message)
+        
+        for player in appDelegate.getPlayers() {
+            print("Player's name is \(player.name)")
+        }
+        
         // Do any additional setup after loading the view.
     }
     
