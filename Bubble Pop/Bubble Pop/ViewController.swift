@@ -9,12 +9,24 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var message = "This is from the first screen"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
+    @IBAction func move(_ sender:Any) {
+        performSegue(withIdentifier: "toSecondScreen", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSecondScreen" {
+            let secondScreen = segue.destination as! SecondScreenViewController
+            secondScreen.message = self.message
+        }
+    }
 
 }
 

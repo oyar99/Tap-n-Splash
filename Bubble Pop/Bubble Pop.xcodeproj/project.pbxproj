@@ -13,6 +13,7 @@
 		2B0ECC46225DB7930081AD6A /* Bubble_Pop.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0ECC44225DB7930081AD6A /* Bubble_Pop.xcdatamodeld */; };
 		2B0ECC48225DB7940081AD6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B0ECC47225DB7940081AD6A /* Assets.xcassets */; };
 		2B0ECC4B225DB7940081AD6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B0ECC49225DB7940081AD6A /* LaunchScreen.storyboard */; };
+		2B0ECC53225DBF800081AD6A /* SecondScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0ECC52225DBF800081AD6A /* SecondScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2B0ECC47225DB7940081AD6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B0ECC4A225DB7940081AD6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B0ECC4C225DB7940081AD6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B0ECC52225DBF800081AD6A /* SecondScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				2B0ECC49225DB7940081AD6A /* LaunchScreen.storyboard */,
 				2B0ECC4C225DB7940081AD6A /* Info.plist */,
 				2B0ECC44225DB7930081AD6A /* Bubble_Pop.xcdatamodeld */,
+				2B0ECC52225DBF800081AD6A /* SecondScreenViewController.swift */,
 			);
 			path = "Bubble Pop";
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0ECC53225DBF800081AD6A /* SecondScreenViewController.swift in Sources */,
 				2B0ECC40225DB7930081AD6A /* ViewController.swift in Sources */,
 				2B0ECC3E225DB7930081AD6A /* AppDelegate.swift in Sources */,
 				2B0ECC46225DB7930081AD6A /* Bubble_Pop.xcdatamodeld in Sources */,
