@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B07393222796B6800162B5B /* SettingsControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07393122796B6800162B5B /* SettingsControllerTableViewController.swift */; };
 		2BB5E5F622670D060065DA87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5E5F522670D060065DA87 /* AppDelegate.swift */; };
 		2BB5E5F822670D060065DA87 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5E5F722670D060065DA87 /* GameViewController.swift */; };
 		2BB5E5FB22670D060065DA87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5E5F922670D060065DA87 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B07393122796B6800162B5B /* SettingsControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsControllerTableViewController.swift; sourceTree = "<group>"; };
 		2BB5E5F222670D060065DA87 /* Bubble Pop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubble Pop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BB5E5F522670D060065DA87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BB5E5F722670D060065DA87 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				2BB5E5F722670D060065DA87 /* GameViewController.swift */,
+				2B07393122796B6800162B5B /* SettingsControllerTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -131,6 +134,7 @@
 				TargetAttributes = {
 					2BB5E5F122670D060065DA87 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -172,6 +176,7 @@
 			files = (
 				2BB5E5F822670D060065DA87 /* GameViewController.swift in Sources */,
 				2BB5E60C2267104C0065DA87 /* MainMenu.swift in Sources */,
+				2B07393222796B6800162B5B /* SettingsControllerTableViewController.swift in Sources */,
 				2BB5E5F622670D060065DA87 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +323,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -329,6 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "-3514233.Bubble-Pop";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -338,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";

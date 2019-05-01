@@ -65,4 +65,8 @@ class MainMenu: SKScene {
         let zoomSequence = SKAction.sequence([zoomIn, zoomOut])
         button.run(SKAction.repeatForever(zoomSequence))
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("clicked")
+    }
 }
