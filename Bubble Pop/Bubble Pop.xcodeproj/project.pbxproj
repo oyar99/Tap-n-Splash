@@ -14,6 +14,10 @@
 		2BB5E5FD22670D070065DA87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5E5FC22670D070065DA87 /* Assets.xcassets */; };
 		2BB5E60022670D070065DA87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5E5FE22670D070065DA87 /* LaunchScreen.storyboard */; };
 		2BB5E60C2267104C0065DA87 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5E60B2267104C0065DA87 /* MainMenu.swift */; };
+		30DB36D5227EF6B800B6E2BB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB36D4227EF6B800B6E2BB /* Player.swift */; };
+		30DB36D7227EF7B900B6E2BB /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB36D6227EF7B900B6E2BB /* Bubble.swift */; };
+		30DB36D9227EFB0400B6E2BB /* LeaderboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB36D8227EFB0400B6E2BB /* LeaderboardTableViewController.swift */; };
+		30DB36DB227EFBDB00B6E2BB /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB36DA227EFBDB00B6E2BB /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		2BB5E5FF22670D070065DA87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BB5E60122670D070065DA87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BB5E60B2267104C0065DA87 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		30DB36D4227EF6B800B6E2BB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		30DB36D6227EF7B900B6E2BB /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
+		30DB36D8227EFB0400B6E2BB /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; };
+		30DB36DA227EFBDB00B6E2BB /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 		2BB5E5F422670D060065DA87 /* Bubble Pop */ = {
 			isa = PBXGroup;
 			children = (
+				30DB36D3227EF67B00B6E2BB /* Game */,
 				2BB5E60A2267101D0065DA87 /* Scenes */,
 				2BB5E60922670E3C0065DA87 /* Configuration */,
 				2BB5E60722670DC40065DA87 /* ViewController */,
@@ -72,6 +81,7 @@
 			children = (
 				2BB5E5F722670D060065DA87 /* GameViewController.swift */,
 				2B07393122796B6800162B5B /* SettingsControllerTableViewController.swift */,
+				30DB36D8227EFB0400B6E2BB /* LeaderboardTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -102,6 +112,16 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		30DB36D3227EF67B00B6E2BB /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				30DB36D4227EF6B800B6E2BB /* Player.swift */,
+				30DB36D6227EF7B900B6E2BB /* Bubble.swift */,
+				30DB36DA227EFBDB00B6E2BB /* GameManager.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -128,6 +148,9 @@
 		2BB5E5EA22670D060065DA87 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					Settings,
+				);
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Jhon Stewar Rayo Mosquera";
@@ -175,8 +198,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BB5E5F822670D060065DA87 /* GameViewController.swift in Sources */,
+				30DB36D7227EF7B900B6E2BB /* Bubble.swift in Sources */,
+				30DB36D9227EFB0400B6E2BB /* LeaderboardTableViewController.swift in Sources */,
 				2BB5E60C2267104C0065DA87 /* MainMenu.swift in Sources */,
 				2B07393222796B6800162B5B /* SettingsControllerTableViewController.swift in Sources */,
+				30DB36D5227EF6B800B6E2BB /* Player.swift in Sources */,
+				30DB36DB227EFBDB00B6E2BB /* GameManager.swift in Sources */,
 				2BB5E5F622670D060065DA87 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +355,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Bubble Pop/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,6 +378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Bubble Pop/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

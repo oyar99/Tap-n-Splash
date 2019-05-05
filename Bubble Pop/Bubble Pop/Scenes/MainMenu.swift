@@ -11,6 +11,11 @@ import SpriteKit
 
 class MainMenu: SKScene {
     
+    var playButtonNode: SKSpriteNode! = nil
+    var leaderboardButtonNode: SKSpriteNode! = nil
+    var settingsButtonNode: SKSpriteNode! = nil
+
+    
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
         addButtons()
@@ -42,17 +47,17 @@ class MainMenu: SKScene {
         default:
             break
         }
-        let playButtonNode = SKSpriteNode(imageNamed: playButton)
+        playButtonNode = SKSpriteNode(imageNamed: playButton)
         playButtonNode.size = CGSize(width: frame.size.width / 5, height: frame.size.height / 10)
         playButtonNode.position = CGPoint(x: frame.midX, y: (frame.midY + frame.maxY) / 4)
         addChild(playButtonNode)
         animate(button: playButtonNode)
-        let leaderboardButtonNode = SKSpriteNode(imageNamed: leaderboardButton)
+        leaderboardButtonNode = SKSpriteNode(imageNamed: leaderboardButton)
         leaderboardButtonNode.size = CGSize(width: frame.size.width / 5, height: frame.size.height / 10)
         leaderboardButtonNode.position = CGPoint(x: (frame.minX + playButtonNode.position.x) / 2, y: (frame.midY + frame.maxY) / 4)
         addChild(leaderboardButtonNode)
         animate(button: leaderboardButtonNode)
-        let settingsButtonNode = SKSpriteNode(imageNamed: settingsButton)
+        settingsButtonNode = SKSpriteNode(imageNamed: settingsButton)
         settingsButtonNode.size = CGSize(width: frame.size.width / 5, height: frame.size.height / 10)
         settingsButtonNode.position = CGPoint(x: (frame.maxX + playButtonNode.position.x) / 2, y: (frame.midY + frame.maxY) / 4)
         addChild(settingsButtonNode)
@@ -67,6 +72,20 @@ class MainMenu: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("clicked")
+        for touch in touches {
+            let loc = touch.location(in: self)
+            let viewController = UIApplication.shared.keyWindow?.rootViewController!
+            if playButtonNode.contains(loc) {
+                print("Game should start!")
+            }
+            else if leaderboardButtonNode.contains(loc) {
+                let leaderboardScene = LeaderboardTableViewController()
+                viewController?.present(leaderboardScene, animated: true, completion: nil)
+            } else if settingsButtonNode.contains(loc) {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let settingsScene = storyboard.instantiateViewController(withIdentifier: "Settings")
+                viewController?.present(settingsScene, animated: true, completion: nil)
+            }
+        }
     }
 }
