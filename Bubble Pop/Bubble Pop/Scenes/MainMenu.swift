@@ -11,10 +11,11 @@ import SpriteKit
 
 class MainMenu: SKScene {
     
+    var viewController: UIViewController?
+    
     var playButtonNode: SKSpriteNode! = nil
     var leaderboardButtonNode: SKSpriteNode! = nil
     var settingsButtonNode: SKSpriteNode! = nil
-
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
@@ -79,12 +80,9 @@ class MainMenu: SKScene {
                 print("Game should start!")
             }
             else if leaderboardButtonNode.contains(loc) {
-                let leaderboardScene = LeaderboardTableViewController()
-                viewController?.present(leaderboardScene, animated: true, completion: nil)
+                viewController?.performSegue(withIdentifier: "leaderboardSegue", sender: nil)
             } else if settingsButtonNode.contains(loc) {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let settingsScene = storyboard.instantiateViewController(withIdentifier: "Settings")
-                viewController?.present(settingsScene, animated: true, completion: nil)
+                viewController?.performSegue(withIdentifier: "settingsSegue", sender: self)
             }
         }
     }

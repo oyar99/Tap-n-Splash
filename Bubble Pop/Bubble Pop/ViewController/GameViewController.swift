@@ -9,16 +9,16 @@
 import UIKit
 import SpriteKit
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if let view = self.view as! SKView? {
             let scene = MainMenu(size: view.bounds.size)
             scene.scaleMode = .aspectFill
-            view.presentScene(scene)
             view.ignoresSiblingOrder = true
+            scene.viewController = self
+            view.presentScene(scene)
         }
     }
 
