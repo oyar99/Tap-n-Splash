@@ -19,6 +19,10 @@ class GameManager {
     }
     
     static func getPlayers() -> [Player] {
-        return UserDefaults.standard.object(forKey: "Players") as? [Player] ?? [Player]()
+        return UserDefaults.standard.array(forKey: "Players") as? [Player] ?? [Player]()
+    }
+    
+    static func savePlayers(players: [Player]) {
+        UserDefaults.standard.set(players, forKey: "Players")
     }
 }
