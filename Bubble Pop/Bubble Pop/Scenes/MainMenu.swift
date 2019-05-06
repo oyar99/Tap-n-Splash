@@ -77,7 +77,8 @@ class MainMenu: SKScene {
             let loc = touch.location(in: self)
             let viewController = UIApplication.shared.keyWindow?.rootViewController!
             if playButtonNode.contains(loc) {
-                print("Game should start!")
+                let gameScene = GameScene(size: view!.bounds.size)
+                view!.presentScene(gameScene)
             }
             else if leaderboardButtonNode.contains(loc) {
                 viewController?.performSegue(withIdentifier: "leaderboardSegue", sender: nil)
