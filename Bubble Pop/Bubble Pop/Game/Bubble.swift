@@ -6,15 +6,15 @@
 //  Copyright © 2019 Jhon Stewar Rayo Mosquera. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 enum BubbleSprite:String {
     case BlackBubble, BlueBubble, GreenBubble , PinkBubble, RedBubble
 }
 
-class Bubble {
+class Bubble: SKSpriteNode {
     
-    let type: BubbleSprite
+    let type: BubbleSprite = .BlackBubble
     
     var gamePoints: Int {
         switch type {
@@ -31,22 +31,22 @@ class Bubble {
         }
     }
     
-    var probabilityOfAppearance: Double {
-        switch type {
-        case .BlackBubble:
-            return 0.05
-        case .BlueBubble:
-            return 0.1
-        case .GreenBubble:
-            return 0.15
-        case .PinkBubble:
-            return 0.3
-        case .RedBubble:
-            return 0.4
+    static func randomColor() -> BubbleSprite {
+        let randInt = Int.random(in: 0...100)
+        
+        switch randInt {
+        case 0...5:
+            return .BlackBubble
+        case 5...15:
+            return .BlueBubble
+        case 15...30:
+            return .GreenBubble
+        case 30...60:
+            return .PinkBubble
+        case 60...100:
+            return .RedBubble
+        default:
+            return .RedBubble
         }
-    }
-    
-    init(type: BubbleSprite) {
-        self.type = type
     }
 }

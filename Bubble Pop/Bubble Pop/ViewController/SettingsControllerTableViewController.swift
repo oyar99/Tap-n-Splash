@@ -55,6 +55,7 @@ class SettingsControllerTableViewController: UITableViewController {
         SettingsManager.toggleSoundEffects(state: soundEffectsToggle.isOn)
         SettingsManager.changeGameTime(newTime: Int(timeSlider.value))
         SettingsManager.changeNumberOfBubbles(newAmount: Int(bubblesSlider.value))
-        dismiss(animated: true, completion: nil)
+        print("saved")
+        //navigationController?.popViewController(animated: true)
     }
 }
