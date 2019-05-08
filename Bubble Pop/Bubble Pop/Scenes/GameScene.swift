@@ -14,6 +14,7 @@ class GameScene: SKScene {
     let highscoreLabel = SKLabelNode()
     let nameLabel = SKLabelNode()
     let timeLabel = SKLabelNode()
+    var clockImage = SKSpriteNode()
     
     var score = 0
     let minBubbles = 4
@@ -24,6 +25,7 @@ class GameScene: SKScene {
     var spawnRate: TimeInterval = 1.0
     var currentSpawnRate: TimeInterval = 0.0
     var updateTime: TimeInterval = 0.0
+    var isAnimating = false
     
     var upperWall = 0.0
     let offsetBetweenBubbles: CGFloat = 20.0
@@ -50,18 +52,76 @@ class GameScene: SKScene {
         
         updateTime = currentTime
         
+        if time < 10 && !isAnimating {
+            animate(clockImage)
+            isAnimating = true
+        }
+        
+        if time == 0 {
+            gameOver()
+        }
+        
+    }
+    
+    func gameOver() {
+        if score > GameManager.getHighscore() {
+            GameManager.saveHighscore(highscore: score)
+        }
+        var players = GameManager.getPlayers()
+        let player = Player(name: "Example", score: score)
+        players.append(player)
+        GameManager.savePlayers(players: players)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = UIApplication.shared.keyWindow?.rootViewController!
+        let gameOverScene = storyboard.instantiateViewController(withIdentifier: "gameover")
+        viewController?.present(gameOverScene, animated: true, completion: nil)
+        
+    }
+    
+    func animate(_ node: SKSpriteNode) {
+        let zoomIn = SKAction.resize(byWidth: 5.0, height: 5.0, duration: 0.5)
+        let zoomOut = SKAction.resize(byWidth: -5.0, height: -5.0, duration: 0.5)
+        let zoomSequence = SKAction.sequence([zoomIn, zoomOut])
+        node.run(SKAction.repeatForever(zoomSequence))
     }
     
     func spawnBubbles() {
         if bubblesOnScreen.count == 0 {
             let numOfBubbles = Int.random(in: minBubbles...maxBubbles)
             
-            for _ in 0...numOfBubbles {
+            for _ in 0..<numOfBubbles {
                 initBubble()
             }
         } else {
-            let numOfBubblesToRemove = Int.random(in: 1...bubblesOnScreen.count - 1)
+            let numOfBubblesToRemove = Int.random(in: 1...bubblesOnScreen.count)
             let randomIndices = (0...numOfBubblesToRemove).map{ _ in Int.random(in: 0..<bubblesOnScreen.count)}
+            var removedbubbles = [Bubble]()
+            var temp = [Bubble]()
+            
+            for i in randomIndices {
+                removedbubbles.append(bubblesOnScreen[i])
+            }
+            
+            for bubble in bubblesOnScreen {
+                if !removedbubbles.contains(bubble) {
+                    temp.append(bubble)
+                }
+            }
+            
+            bubblesOnScreen = temp
+            
+            for bubble in removedbubbles {
+                bubble.removeFromParent()
+            }
+            
+            let min = minBubbles - bubblesOnScreen.count < 0 ? 0 : minBubbles - bubblesOnScreen.count
+            
+            let numOfBubbles = Int.random(in: min...maxBubbles - bubblesOnScreen.count)
+            
+            for _ in 0..<numOfBubbles {
+                initBubble()
+            }
             
         }
         
@@ -105,8 +165,13 @@ class GameScene: SKScene {
         bubble.position = pos
         bubblesOnScreen.append(bubble)
         addChild(bubble)
+    
+        let randomDirectionX: CGFloat = Bool.random() ? 1.0 : -1.0
+        let randomDirectionY: CGFloat = Bool.random() ? 1.0 : -1.0
+        let randomMagnitudeX: CGFloat = CGFloat(Int.random(in: 500...1000))
+        let randomMagnitudeY: CGFloat = CGFloat(Int.random(in: 500...1000))
         
-        bubble.physicsBody?.velocity = CGVector(dx: 50, dy: -50)
+        bubble.physicsBody?.velocity = CGVector(dx: randomMagnitudeX * randomDirectionX, dy: randomMagnitudeY * randomDirectionY)
     }
     
     func setupPhysics() {
@@ -147,7 +212,7 @@ class GameScene: SKScene {
         highscoreLabel.position = CGPoint(x: scoreLabel.position.x + scoreLabel.frame.size.width + 50, y: box.size.height / 3)
         box.addChild(highscoreLabel)
         
-        let clockImage = SKSpriteNode(imageNamed: "clock")
+        clockImage = SKSpriteNode(imageNamed: "clock")
         clockImage.position = CGPoint(x: highscoreLabel.position.x + highscoreLabel.frame.size.width,y: box.size.height / 2)
         box.addChild(clockImage)
         
@@ -163,6 +228,17 @@ class GameScene: SKScene {
     
     func updateTimeLabel() {
         timeLabel.text = "\(time) secs"
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first! as UITouch
+        let pos = touch.location(in: self)
+        let bubble: Bubble? = atPoint(pos) as? Bubble
+        
+        if let bubble = bubble {
+            score += bubble.gamePoints
+            updateScoreLabel()
+        }
     }
     
 }

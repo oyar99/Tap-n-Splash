@@ -11,8 +11,6 @@ import SpriteKit
 
 class MainMenu: SKScene {
     
-    var viewController: UIViewController?
-    
     var playButtonNode: SKSpriteNode! = nil
     var leaderboardButtonNode: SKSpriteNode! = nil
     var settingsButtonNode: SKSpriteNode! = nil

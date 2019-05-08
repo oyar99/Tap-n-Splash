@@ -272,5 +272,73 @@
             </objects>
             <point key="canvasLocation" x="-73" y="-191"/>
         </scene>
+        <!--Game Over View Controller-->
+        <scene sceneID="3FI-IG-ffb">
+            <objects>
+                <viewController storyboardIdentifier="gameover" id="grv-Ub-8P2" customClass="GameOverViewController" customModule="Bubble_Pop" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dZ1-VC-9YQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAME OVER!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOn-iY-8lb">
+                                <rect key="frame" x="95" y="177" width="184" height="52"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your score: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o72-W1-exa">
+                                <rect key="frame" x="16" y="288" width="80" height="19"/>
+                                <fontDescription key="fontDescription" name="Palatino-Italic" family="Palatino" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highscore: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmU-da-w81">
+                                <rect key="frame" x="16" y="315" width="78" height="19"/>
+                                <fontDescription key="fontDescription" name="Palatino-Italic" family="Palatino" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htc-gM-h0S">
+                                <rect key="frame" x="156" y="374" width="62" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="gameover"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="goToMainMenu:" destination="grv-Ub-8P2" eventType="touchUpInside" id="oOV-kI-arg"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash2-Blue" translatesAutoresizingMaskIntoConstraints="NO" id="OwS-hp-z5M">
+                                <rect key="frame" x="67" y="113" width="240" height="180"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OwS-hp-z5M" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="67" id="3wf-MK-fcN"/>
+                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="bottom" secondItem="htc-gM-h0S" secondAttribute="bottom" constant="263" id="B2F-3m-kRV"/>
+                            <constraint firstItem="o72-W1-exa" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="16" id="DYU-zc-k9b"/>
+                            <constraint firstItem="mOn-iY-8lb" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="95" id="OK6-MS-XX5"/>
+                            <constraint firstItem="mOn-iY-8lb" firstAttribute="top" secondItem="pmh-AJ-qLM" secondAttribute="top" constant="157" id="OSi-df-n7E"/>
+                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="OwS-hp-z5M" secondAttribute="trailing" constant="68" id="Prx-6P-YhF"/>
+                            <constraint firstItem="TmU-da-w81" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="16" id="Ro4-KW-JUB"/>
+                            <constraint firstItem="htc-gM-h0S" firstAttribute="top" secondItem="OwS-hp-z5M" secondAttribute="bottom" constant="81" id="W0N-FR-Z9C"/>
+                            <constraint firstItem="OwS-hp-z5M" firstAttribute="top" secondItem="pmh-AJ-qLM" secondAttribute="top" constant="93" id="YKF-NY-qMB"/>
+                            <constraint firstItem="htc-gM-h0S" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="156" id="Z7M-L6-Ycu"/>
+                            <constraint firstItem="TmU-da-w81" firstAttribute="top" secondItem="o72-W1-exa" secondAttribute="bottom" constant="8" id="fgv-pL-921"/>
+                            <constraint firstItem="o72-W1-exa" firstAttribute="top" secondItem="pmh-AJ-qLM" secondAttribute="top" constant="268" id="iEe-Rl-sqU"/>
+                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="mOn-iY-8lb" secondAttribute="trailing" constant="96" id="nNH-Kd-oo5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pmh-AJ-qLM"/>
+                    </view>
+                    <connections>
+                        <outlet property="highscoreLabel" destination="TmU-da-w81" id="J0Z-4x-NN4"/>
+                        <outlet property="scoreLabel" destination="o72-W1-exa" id="5g2-kD-d2Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VgF-XM-JV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="806" y="-191"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Splash2-Blue" width="188" height="180"/>
+    </resources>
 </document>
