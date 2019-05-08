@@ -17,3 +17,7 @@ struct Player: Codable {
         self.score = score
     }
 }
+
+struct GameData {
+    static var player: Player! = nil
+}

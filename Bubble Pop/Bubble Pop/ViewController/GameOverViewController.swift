@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class GameOverViewController: UIViewController {
 
@@ -15,10 +16,15 @@ class GameOverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupValues()
     }
 
     @IBAction func goToMainMenu(_ sender: Any) {
-        
+        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func setupValues() {
+        scoreLabel.text = "You scored \(GameData.player.score) points"
+        highscoreLabel.text = "Highscore: \(GameManager.getHighscore())"
     }
 }

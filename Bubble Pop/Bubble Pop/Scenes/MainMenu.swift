@@ -70,16 +70,35 @@ class MainMenu: SKScene {
         button.run(SKAction.repeatForever(zoomSequence))
     }
     
+    func prepareSessionGame() {
+        let alertController = UIAlertController(title: "Your name", message: "", preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: { texfield in
+            texfield.placeholder = "Enter your name";
+            texfield.textAlignment = .center
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Ready to play!", style: .default, handler: { _ in
+            GameData.player = Player(name: (alertController.textFields?.first?.text!)!, score: 0)
+            let gameScene = GameScene(size: self.view!.bounds.size)
+            self.view!.presentScene(gameScene)
+            })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        
+        let viewController = UIApplication.shared.keyWindow?.rootViewController!
+        viewController?.present(alertController, animated: true, completion: nil)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let loc = touch.location(in: self)
             let viewController = UIApplication.shared.keyWindow?.rootViewController!
             if playButtonNode.contains(loc) {
-                let gameScene = GameScene(size: view!.bounds.size)
-                view!.presentScene(gameScene)
+                prepareSessionGame()
             }
             else if leaderboardButtonNode.contains(loc) {
-                viewController?.performSegue(withIdentifier: "leaderboardSegue", sender: nil)
+                viewController?.performSegue(withIdentifier: "leaderboardSegue", sender: self)
             } else if settingsButtonNode.contains(loc) {
                 viewController?.performSegue(withIdentifier: "settingsSegue", sender: self)
             }

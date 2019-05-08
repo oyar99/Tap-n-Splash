@@ -41,7 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1641" y="856"/>
+            <point key="canvasLocation" x="-1002" y="849"/>
         </scene>
         <!--Settings Controller Table View Controller-->
         <scene sceneID="IH3-ce-9xV">
@@ -226,12 +226,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecC-bn-Oga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-73" y="479"/>
+            <point key="canvasLocation" x="-186" y="76"/>
         </scene>
-        <!--Leaderboard Table View Controller-->
+        <!--Leaderboard-->
         <scene sceneID="XlN-ac-xLT">
             <objects>
-                <tableViewController storyboardIdentifier="Leaderboard" id="KeC-uz-tMh" customClass="LeaderboardTableViewController" customModule="Bubble_Pop" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Leaderboard" title="Leaderboard" id="KeC-uz-tMh" customClass="LeaderboardTableViewController" customModule="Bubble_Pop" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NIm-xd-vgG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -270,7 +270,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXx-75-XmH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-73" y="-191"/>
+            <point key="canvasLocation" x="-186" y="-610"/>
         </scene>
         <!--Game Over View Controller-->
         <scene sceneID="3FI-IG-ffb">
@@ -286,8 +286,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highscore: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmU-da-w81">
-                                <rect key="frame" x="148" y="317" width="78" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highscore: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmU-da-w81">
+                                <rect key="frame" x="16" y="317" width="343" height="19"/>
                                 <fontDescription key="fontDescription" name="Palatino-Italic" family="Palatino" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -300,11 +300,11 @@
                                     <action selector="goToMainMenu:" destination="grv-Ub-8P2" eventType="touchUpInside" id="oOV-kI-arg"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash2-Blue" translatesAutoresizingMaskIntoConstraints="NO" id="OwS-hp-z5M">
-                                <rect key="frame" x="67" y="113" width="240" height="180"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash1-Blue" translatesAutoresizingMaskIntoConstraints="NO" id="OwS-hp-z5M">
+                                <rect key="frame" x="67" y="113" width="240" height="142"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your score: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o72-W1-exa">
-                                <rect key="frame" x="148" y="290" width="80" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your score: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o72-W1-exa">
+                                <rect key="frame" x="16" y="290" width="343" height="19"/>
                                 <fontDescription key="fontDescription" name="Palatino-Italic" family="Palatino" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -312,21 +312,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="htc-gM-h0S" firstAttribute="top" secondItem="TmU-da-w81" secondAttribute="bottom" constant="33" id="3o2-Uy-XQ9"/>
                             <constraint firstItem="OwS-hp-z5M" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="67" id="3wf-MK-fcN"/>
-                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="o72-W1-exa" secondAttribute="trailing" constant="147" id="9ES-Po-sb8"/>
+                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="TmU-da-w81" secondAttribute="trailing" constant="16" id="6YH-uM-Vim"/>
+                            <constraint firstItem="TmU-da-w81" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="16" id="8yH-Sc-Tlz"/>
+                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="o72-W1-exa" secondAttribute="trailing" constant="16" id="CSC-Wy-Aga"/>
+                            <constraint firstItem="o72-W1-exa" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="16" id="GuG-aG-6gS"/>
                             <constraint firstItem="mOn-iY-8lb" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="95" id="OK6-MS-XX5"/>
                             <constraint firstItem="mOn-iY-8lb" firstAttribute="top" secondItem="pmh-AJ-qLM" secondAttribute="top" constant="157" id="OSi-df-n7E"/>
                             <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="OwS-hp-z5M" secondAttribute="trailing" constant="68" id="Prx-6P-YhF"/>
                             <constraint firstItem="htc-gM-h0S" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="156" id="RAe-7j-xZl"/>
-                            <constraint firstItem="o72-W1-exa" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="148" id="TeP-rB-iRk"/>
+                            <constraint firstItem="o72-W1-exa" firstAttribute="top" secondItem="OwS-hp-z5M" secondAttribute="bottom" constant="35" id="TjL-hQ-Aue"/>
                             <constraint firstItem="OwS-hp-z5M" firstAttribute="top" secondItem="pmh-AJ-qLM" secondAttribute="top" constant="93" id="YKF-NY-qMB"/>
+                            <constraint firstItem="TmU-da-w81" firstAttribute="top" secondItem="o72-W1-exa" secondAttribute="bottom" constant="8" id="ckP-pM-QbU"/>
                             <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="htc-gM-h0S" secondAttribute="trailing" constant="157" id="e4M-5g-gFq"/>
-                            <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="TmU-da-w81" secondAttribute="trailing" constant="149" id="efd-In-Ask"/>
-                            <constraint firstItem="TmU-da-w81" firstAttribute="leading" secondItem="pmh-AJ-qLM" secondAttribute="leading" constant="148" id="gz8-7a-u4F"/>
-                            <constraint firstItem="o72-W1-exa" firstAttribute="top" secondItem="mOn-iY-8lb" secondAttribute="bottom" constant="61" id="klR-S1-HVJ"/>
-                            <constraint firstItem="TmU-da-w81" firstAttribute="top" secondItem="o72-W1-exa" secondAttribute="bottom" constant="8" id="n8g-dQ-6lA"/>
                             <constraint firstItem="pmh-AJ-qLM" firstAttribute="trailing" secondItem="mOn-iY-8lb" secondAttribute="trailing" constant="96" id="nNH-Kd-oo5"/>
-                            <constraint firstItem="htc-gM-h0S" firstAttribute="top" secondItem="TmU-da-w81" secondAttribute="bottom" constant="33" id="nqG-TP-yJM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pmh-AJ-qLM"/>
                     </view>
@@ -337,10 +337,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VgF-XM-JV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="806" y="-191"/>
+            <point key="canvasLocation" x="-1844" y="849"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Splash2-Blue" width="188" height="180"/>
+        <image name="Splash1-Blue" width="150" height="142"/>
     </resources>
 </document>

@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-
+import UIKit
 class GameScene: SKScene {
     
     let scoreLabel = SKLabelNode()
@@ -15,6 +15,7 @@ class GameScene: SKScene {
     let nameLabel = SKLabelNode()
     let timeLabel = SKLabelNode()
     var clockImage = SKSpriteNode()
+    let countdownLabel = SKLabelNode()
     
     let minBubbles = 4
     var maxBubbles = SettingsManager.getNumberOfBubbles()
@@ -26,63 +27,89 @@ class GameScene: SKScene {
     var updateTime: TimeInterval = 0.0
     var isAnimating = false
     var isGameOver = false
+    var iscountingDown = true
     
     
     var upperWall = 0.0
     let offsetBetweenBubbles: CGFloat = 20.0
     
-    let minSpeed = 200
-    let maxSpeed = 400
+    let bubbleSpeed: CGFloat = 200.0
+    var counter = 3
     
     var score = 0
+    var latestTappedColor:BubbleSprite?
     
     override func didMove(to view: SKView) {
         setupLabels()
         setupValues()
         setupPhysics()
         layoutScene()
+        startCounter()
+    }
+    
+    
+    func startCounter() {
+        countdownLabel.text = String(counter)
+        countdownLabel.position = CGPoint(x: frame.minX, y: frame.minY)
+        countdownLabel.fontSize = 10
+        addChild(countdownLabel)
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(countdown), userInfo: nil, repeats: true)
+    }
+    
+    @objc func countdown() {
+        if (counter > 0) {
+            counter -= 1
+            countdownLabel.text = String(counter)
+            print(counter)
+        } else {
+            iscountingDown = false
+            countdownLabel.removeFromParent()
+        }
     }
     
     
     override func update(_ currentTime: TimeInterval) {
-        let delta = currentTime - updateTime
-        
-        currentSpawnRate += delta
-        
-        if currentSpawnRate > spawnRate {
-            spawnBubbles()
-            time -= 1
-            updateTimeLabel()
-            currentSpawnRate = 0.0
+        if !iscountingDown {
+            let delta = currentTime - updateTime
+            
+            currentSpawnRate += delta
+            
+            if currentSpawnRate > spawnRate {
+                spawnBubbles()
+                time -= 1
+                updateTimeLabel()
+                currentSpawnRate = 0.0
+            }
+            
+            updateTime = currentTime
+            
+            if time < 10 && !isAnimating {
+                animate(clockImage)
+                isAnimating = true
+            }
+            
+            if time == 0 && !isGameOver{
+                gameOver()
+                isGameOver = true
+            }
         }
-        
-        updateTime = currentTime
-        
-        if time < 10 && !isAnimating {
-            animate(clockImage)
-            isAnimating = true
-        }
-        
-        if time == 0 && !isGameOver{
-            gameOver()
-            isGameOver = true
-        }
-        
     }
+
     
     func gameOver() {
-        print("gameoverr")
         if score > GameManager.getHighscore() {
             GameManager.saveHighscore(highscore: score)
         }
         var players = GameManager.getPlayers()
-        let player = Player(name: "Example", score: score)
-        players.append(player)
+        GameData.player.score = score
+        players.append(GameData.player)
         GameManager.savePlayers(players: players)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = UIApplication.shared.keyWindow?.rootViewController!
         let gameOverScene = storyboard.instantiateViewController(withIdentifier: "gameover")
+        let mainMenu = MainMenu(size: view!.bounds.size)
+        view?.presentScene(mainMenu)
         viewController?.present(gameOverScene, animated: true, completion: nil)
         
     }
@@ -175,16 +202,14 @@ class GameScene: SKScene {
         bubblesOnScreen.append(bubble)
         addChild(bubble)
     
-        applyRandomVelocity(to: bubble)
+        applyVelocity(to: bubble)
     }
     
-    func applyRandomVelocity(to bubble: Bubble) {
+    func applyVelocity(to bubble: Bubble) {
         let randomDirectionX: CGFloat = Bool.random() ? 1.0 : -1.0
         let randomDirectionY: CGFloat = Bool.random() ? 1.0 : -1.0
-        let randomMagnitudeX: CGFloat = CGFloat(Int.random(in: minSpeed...maxSpeed))
-        let randomMagnitudeY: CGFloat = CGFloat(Int.random(in: minSpeed...maxSpeed))
         
-        bubble.physicsBody?.velocity = CGVector(dx: randomMagnitudeX * randomDirectionX, dy: randomMagnitudeY * randomDirectionY)
+        bubble.physicsBody?.velocity = CGVector(dx: bubbleSpeed * randomDirectionX, dy: bubbleSpeed * randomDirectionY)
     }
     
     func setupPhysics() {
@@ -249,7 +274,11 @@ class GameScene: SKScene {
         let bubble: Bubble? = atPoint(pos) as? Bubble
         
         if let bubble = bubble {
-            score += bubble.gamePoints
+            if bubble.type == latestTappedColor {
+                score += (Int(round(Double(bubble.gamePoints) * 1.5)))
+            } else {
+                score += bubble.gamePoints
+            }
             updateScoreLabel()
             let index = bubblesOnScreen.firstIndex(of: bubble)
             bubblesOnScreen.remove(at: index!)
@@ -259,6 +288,7 @@ class GameScene: SKScene {
             splash.position = bubble.position
             splash.size = CGSize(width: 40, height: 40)
             addChild(splash)
+            latestTappedColor = bubble.type
         }
     }
     

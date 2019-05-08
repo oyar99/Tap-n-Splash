@@ -48,14 +48,16 @@ class SettingsControllerTableViewController: UITableViewController {
         bubblesSlider.value = bubbles
         bubblesLabel.text = String(Int(bubbles))
         
-    soundEffectsToggle.setOn(SettingsManager.shouldPlaySoundEffects(), animated: false)
+        soundEffectsToggle.setOn(SettingsManager.shouldPlaySoundEffects(), animated: false)
     }
     
     @IBAction func saveSettings(_ sender: UIButton) {
         SettingsManager.toggleSoundEffects(state: soundEffectsToggle.isOn)
         SettingsManager.changeGameTime(newTime: Int(timeSlider.value))
         SettingsManager.changeNumberOfBubbles(newAmount: Int(bubblesSlider.value))
-        print("saved")
-        //navigationController?.popViewController(animated: true)
+        let alertMesssage = UIAlertController(title: "Settings have been saved", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertMesssage.addAction(okAction)
+        present(alertMesssage, animated: true, completion: nil)
     }
 }

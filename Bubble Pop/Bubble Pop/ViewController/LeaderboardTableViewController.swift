@@ -22,6 +22,7 @@ class LeaderboardTableViewController: UITableViewController {
     
     func populateTableFromCoreData() {
         players = GameManager.getPlayers()
+        players.sort(by: {$0.score > $1.score})
     }
     
     func performAnimation() {
