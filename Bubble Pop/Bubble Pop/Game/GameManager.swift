@@ -19,27 +19,16 @@ class GameManager {
     }
     
     static func getPlayers() -> [Player] {
-        
-        do {
-            guard let data = UserDefaults.standard.data(forKey: "Players") else {
-                return [Player]()
-            }
-            guard let players = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Player] else {
-                return [Player]()
-            }
+        let data = UserDefaults.standard.data(forKey: "Players")
+        if let data = data {
+            let players = try! JSONDecoder().decode([Player].self, from: data)
             return players
-        } catch {
-            print("couldnt retrieve data")
-            return [Player]()
         }
+        return [Player]()
     }
     
     static func savePlayers(players: [Player]) {
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: players, requiringSecureCoding: false)
-            UserDefaults.standard.set(data, forKey: "Players")
-        } catch {
-            print("Couldnt save data")
-        }
+        let data = try! JSONEncoder().encode(players)
+        UserDefaults.standard.set(data, forKey: "Players")
     }
 }

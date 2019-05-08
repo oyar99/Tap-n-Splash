@@ -16,7 +16,6 @@ class GameScene: SKScene {
     let timeLabel = SKLabelNode()
     var clockImage = SKSpriteNode()
     
-    var score = 0
     let minBubbles = 4
     var maxBubbles = SettingsManager.getNumberOfBubbles()
     var bubblesOnScreen = [Bubble]()
@@ -26,9 +25,16 @@ class GameScene: SKScene {
     var currentSpawnRate: TimeInterval = 0.0
     var updateTime: TimeInterval = 0.0
     var isAnimating = false
+    var isGameOver = false
+    
     
     var upperWall = 0.0
     let offsetBetweenBubbles: CGFloat = 20.0
+    
+    let minSpeed = 200
+    let maxSpeed = 400
+    
+    var score = 0
     
     override func didMove(to view: SKView) {
         setupLabels()
@@ -57,13 +63,15 @@ class GameScene: SKScene {
             isAnimating = true
         }
         
-        if time == 0 {
+        if time == 0 && !isGameOver{
             gameOver()
+            isGameOver = true
         }
         
     }
     
     func gameOver() {
+        print("gameoverr")
         if score > GameManager.getHighscore() {
             GameManager.saveHighscore(highscore: score)
         }
@@ -129,8 +137,9 @@ class GameScene: SKScene {
     
     func initBubble() {
         var bubble:Bubble
-        let image = Bubble.randomColor()
+        let image:BubbleSprite = Bubble.randomColor()
         bubble = Bubble(imageNamed: image.rawValue)
+        bubble.type = image
         bubble.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         bubble.size = CGSize(width: 50, height: 50)
         bubble.name = "bubble"
@@ -166,10 +175,14 @@ class GameScene: SKScene {
         bubblesOnScreen.append(bubble)
         addChild(bubble)
     
+        applyRandomVelocity(to: bubble)
+    }
+    
+    func applyRandomVelocity(to bubble: Bubble) {
         let randomDirectionX: CGFloat = Bool.random() ? 1.0 : -1.0
         let randomDirectionY: CGFloat = Bool.random() ? 1.0 : -1.0
-        let randomMagnitudeX: CGFloat = CGFloat(Int.random(in: 500...1000))
-        let randomMagnitudeY: CGFloat = CGFloat(Int.random(in: 500...1000))
+        let randomMagnitudeX: CGFloat = CGFloat(Int.random(in: minSpeed...maxSpeed))
+        let randomMagnitudeY: CGFloat = CGFloat(Int.random(in: minSpeed...maxSpeed))
         
         bubble.physicsBody?.velocity = CGVector(dx: randomMagnitudeX * randomDirectionX, dy: randomMagnitudeY * randomDirectionY)
     }
@@ -238,6 +251,14 @@ class GameScene: SKScene {
         if let bubble = bubble {
             score += bubble.gamePoints
             updateScoreLabel()
+            let index = bubblesOnScreen.firstIndex(of: bubble)
+            bubblesOnScreen.remove(at: index!)
+            bubble.removeFromParent()
+            let splash = SKSpriteNode(imageNamed: bubble.splash)
+            splash.zPosition = -1
+            splash.position = bubble.position
+            splash.size = CGSize(width: 40, height: 40)
+            addChild(splash)
         }
     }
     

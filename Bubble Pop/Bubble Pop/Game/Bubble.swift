@@ -14,7 +14,7 @@ enum BubbleSprite:String {
 
 class Bubble: SKSpriteNode {
     
-    let type: BubbleSprite = .BlackBubble
+    var type: BubbleSprite = .BlackBubble
     
     var gamePoints: Int {
         switch type {
@@ -28,6 +28,22 @@ class Bubble: SKSpriteNode {
             return 2
         case .RedBubble:
             return 1
+        }
+    }
+    
+    var splash: String {
+        
+        switch type {
+        case .BlackBubble:
+            return "Splash1-Black"
+        case .BlueBubble:
+            return "Splash1-Blue"
+        case .GreenBubble:
+            return "Splash1-Green"
+        case .PinkBubble:
+            return "Splash1-Pink"
+        case .RedBubble:
+            return "Splash1-Red"
         }
     }
     
