@@ -8,28 +8,35 @@
 
 import Foundation
 
+//A static class which provides methods to save settings to the database.
 class SettingsManager {
     
+    //Changes the duration of a game run.
     static func changeGameTime(newTime: Int) {
         UserDefaults.standard.set(newTime, forKey: "Time")
     }
     
+    //Returns the current value for the duration a game run.
     static func getGameTime() -> Int {
         return UserDefaults.standard.integer(forKey: "Time")
     }
     
+    //Changes the maximum number of bubbles allowed on the screen at a time.
     static func changeNumberOfBubbles(newAmount: Int) {
         UserDefaults.standard.set(newAmount, forKey: "Bubbles")
     }
     
+    //Returns the maximum number of bubbles allowed on the screen at a time.
     static func getNumberOfBubbles() -> Int {
         return UserDefaults.standard.integer(forKey: "Bubbles")
     }
     
+    //Turns on/off sound effects.
     static func toggleSoundEffects(state: Bool) {
         UserDefaults.standard.set(state, forKey: "Sound")
     }
     
+    //Returns whether or not the app should play sound effects.
     static func shouldPlaySoundEffects() -> Bool {
         return UserDefaults.standard.bool(forKey: "Sound")
     }

@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+//The main GameViewController for the game.
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {

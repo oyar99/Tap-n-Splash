@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+//The view controller for the settings view.
 class SettingsControllerTableViewController: UITableViewController {
     
     @IBOutlet weak var timeSlider: UISlider!
@@ -25,14 +26,17 @@ class SettingsControllerTableViewController: UITableViewController {
         setUpInitialValues()
     }
     
+    //Updates the time text if the slider changes.
     @IBAction func timeSliderChanged(_ sender: UISlider) {
         timeLabel.text = String(Int32(sender.value))
     }
     
+    //Updates the bubble text if the slider changes.
     @IBAction func bubbleSliderChanged(_ sender: UISlider) {
         bubblesLabel.text = String(Int32(sender.value))
     }
     
+    //Sets up the current values from the database.
     func setUpInitialValues() {
         var time = Float(SettingsManager.getGameTime())
         if time == 0 {
@@ -51,6 +55,7 @@ class SettingsControllerTableViewController: UITableViewController {
         soundEffectsToggle.setOn(SettingsManager.shouldPlaySoundEffects(), animated: false)
     }
     
+    //Saves the specified settings.
     @IBAction func saveSettings(_ sender: UIButton) {
         SettingsManager.toggleSoundEffects(state: soundEffectsToggle.isOn)
         SettingsManager.changeGameTime(newTime: Int(timeSlider.value))

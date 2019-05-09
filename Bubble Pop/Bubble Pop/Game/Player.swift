@@ -8,6 +8,7 @@
 
 import Foundation
 
+//A class which represents a player
 struct Player: Codable {
     let name: String
     var score: Int
@@ -18,6 +19,7 @@ struct Player: Codable {
     }
 }
 
+//The current player
 struct GameData {
     static var player: Player! = nil
 }

@@ -8,9 +8,10 @@
 
 import UIKit
 
+//A view controller for the scoreboard view.
 class LeaderboardTableViewController: UITableViewController {
     
-    var players: [Player] = [Player]()
+    var players: [Player] = [Player]() //A list of players
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,7 @@ class LeaderboardTableViewController: UITableViewController {
         populateTableFromCoreData()
     }
     
+    //Gets players from the database and populates the table
     func populateTableFromCoreData() {
         players = GameManager.getPlayers()
         players.sort(by: {$0.score > $1.score})

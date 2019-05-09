@@ -8,14 +8,17 @@
 
 import SpriteKit
 
+//An enumeration which represents the Sprite/Color of a bubble.
 enum BubbleSprite:String {
     case BlackBubble, BlueBubble, GreenBubble , PinkBubble, RedBubble
 }
 
+//A class which represents a bubble.
 class Bubble: SKSpriteNode {
     
-    var type: BubbleSprite = .BlackBubble
+    var type: BubbleSprite = .BlackBubble //The sprite of the bubble.
     
+    //The game points obtained if this bubble is tapped.
     var gamePoints: Int {
         switch type {
         case .BlackBubble:
@@ -31,6 +34,7 @@ class Bubble: SKSpriteNode {
         }
     }
     
+    //Returns the name of an image which shows a splash.
     var splash: String {
         
         switch type {
@@ -47,6 +51,7 @@ class Bubble: SKSpriteNode {
         }
     }
     
+    //Returns a random Sprite/Color taking into account certain probability.
     static func randomColor() -> BubbleSprite {
         let randInt = Int.random(in: 0...100)
         

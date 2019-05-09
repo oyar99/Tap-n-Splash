@@ -12,35 +12,35 @@ import AVFoundation
 
 class GameScene: SKScene {
     
-    let scoreLabel = SKLabelNode()
-    let highscoreLabel = SKLabelNode()
-    let nameLabel = SKLabelNode()
-    let timeLabel = SKLabelNode()
-    var clockImage = SKSpriteNode()
+    let scoreLabel = SKLabelNode() //A label to show the score to the user.
+    let highscoreLabel = SKLabelNode() //A label to show the highest score to the user.
+    let timeLabel = SKLabelNode() //A label to show a the current time remaining before the game ends.
+    var clockImage = SKSpriteNode() //A label to show a clock image
     let countdownLabel = SKLabelNode()
     
-    let minBubbles = 4
-    var maxBubbles = SettingsManager.getNumberOfBubbles()
-    var bubblesOnScreen = [Bubble]()
+    let minBubbles = 4 //The minimum number of bubbles that will appear at start.
+    var maxBubbles = SettingsManager.getNumberOfBubbles() //The maximum number of bubbles allowed on the screen.
+    var bubblesOnScreen = [Bubble]() //List of current bubbles on screen.
     
-    var time = SettingsManager.getGameTime()
-    var spawnRate: TimeInterval = 1.0
-    var currentSpawnRate: TimeInterval = 0.0
-    var updateTime: TimeInterval = 0.0
-    var isAnimating = false
-    var isGameOver = false
+    var time = SettingsManager.getGameTime() //The time the game will run for.
+    var spawnRate: TimeInterval = 1.0 //The amount of time it takes to refresh bubbles on the screen.
+    var currentSpawnRate: TimeInterval = 0.0 //The time it has elapsed since the bubbles were last refreshed.
+    var updateTime: TimeInterval = 0.0 //The time the game has been running for.
+    var isAnimating = false //Determines whether the clok image is animating or not.
+    var isGameOver = false //Determines whether the game has finished or not.
     var iscountingDown = true
     
     
     var upperWall = 0.0
-    let offsetBetweenBubbles: CGFloat = 20.0
+    let offsetBetweenBubbles: CGFloat = 20.0 //The minimum distance between bubbles at spawn time.
     
-    let bubbleSpeed: CGFloat = 200.0
+    let bubbleSpeed: CGFloat = 200.0 //The bubbles speed
     var counter = 3
     
-    var score = 0
-    var latestTappedColor:BubbleSprite?
+    var score = 0 //The current score
+    var latestTappedColor:BubbleSprite? //The color of the most recent tapped bubble.
     
+    //Initializes the scene
     override func didMove(to view: SKView) {
         setupLabels()
         setupValues()
@@ -69,7 +69,7 @@ class GameScene: SKScene {
         }
     }
     
-    
+    //Runs every frame.
     override func update(_ currentTime: TimeInterval) {
         if !iscountingDown {
             let delta = currentTime - updateTime
@@ -97,7 +97,7 @@ class GameScene: SKScene {
         }
     }
 
-    
+    //Finishes the current game run.
     func gameOver() {
         if score > GameManager.getHighscore() {
             GameManager.saveHighscore(highscore: score)
@@ -116,6 +116,7 @@ class GameScene: SKScene {
         
     }
     
+    //Applies a zoom-in zoom-out animation to the given node.
     func animate(_ node: SKSpriteNode) {
         let zoomIn = SKAction.resize(byWidth: 5.0, height: 5.0, duration: 0.5)
         let zoomOut = SKAction.resize(byWidth: -5.0, height: -5.0, duration: 0.5)
@@ -123,6 +124,7 @@ class GameScene: SKScene {
         node.run(SKAction.repeatForever(zoomSequence))
     }
     
+    //Spawn bubbles on the screen given certain criteria.
     func spawnBubbles() {
         if bubblesOnScreen.count == 0 {
             let numOfBubbles = Int.random(in: minBubbles...maxBubbles)
@@ -164,6 +166,7 @@ class GameScene: SKScene {
         
     }
     
+    //Spawn a single bubble on the screen
     func initBubble() {
         var bubble:Bubble
         let image:BubbleSprite = Bubble.randomColor()
@@ -207,6 +210,7 @@ class GameScene: SKScene {
         applyVelocity(to: bubble)
     }
     
+    //Changes the velocity of the given bubble
     func applyVelocity(to bubble: Bubble) {
         let randomDirectionX: CGFloat = Bool.random() ? 1.0 : -1.0
         let randomDirectionY: CGFloat = Bool.random() ? 1.0 : -1.0
@@ -214,6 +218,7 @@ class GameScene: SKScene {
         bubble.physicsBody?.velocity = CGVector(dx: bubbleSpeed * randomDirectionX, dy: bubbleSpeed * randomDirectionY)
     }
     
+    //Sets up the physics environment.
     func setupPhysics() {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -221,11 +226,13 @@ class GameScene: SKScene {
         physicsWorld.contactDelegate = self
     }
     
+    //Sets up default values if neccesary.
     func setupValues() {
         time = time == 0 ? 60: time
         maxBubbles = maxBubbles == 0 ? 15:maxBubbles
     }
     
+    //Sets up values for different labels.
     func setupLabels() {
         let highscore = GameManager.getHighscore()
         highscoreLabel.text = "Highscore: \(highscore)"
@@ -233,6 +240,7 @@ class GameScene: SKScene {
         scoreLabel.text = "Score: \(score)"
     }
     
+    //Layouts the GUI components of the game scene.
     func layoutScene() {
         backgroundColor = SKColor.white
         let box = SKSpriteNode(color: UIColor.lightGray, size: CGSize(width: frame.size.width, height: frame.size.height / 12))
@@ -262,14 +270,17 @@ class GameScene: SKScene {
         box.addChild(timeLabel)
     }
     
+    //Updates the score label with the current score.
     func updateScoreLabel() {
         scoreLabel.text = "Score: \(score)"
     }
     
+    //Updates the time label with the current remaining time.
     func updateTimeLabel() {
         timeLabel.text = "\(time) secs"
     }
     
+    //Plays a splash sound
     func playSplashSound() {
         if SettingsManager.shouldPlaySoundEffects() {
             let splashSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "Bubble1", ofType: "mp3")!)
@@ -279,6 +290,7 @@ class GameScene: SKScene {
         }
     }
 
+    //Detects a touch on the screen and responds accordingly.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first! as UITouch
         let pos = touch.location(in: self)

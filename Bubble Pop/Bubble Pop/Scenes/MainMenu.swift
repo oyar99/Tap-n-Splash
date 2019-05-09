@@ -11,15 +11,17 @@ import SpriteKit
 
 class MainMenu: SKScene {
     
-    var playButtonNode: SKSpriteNode! = nil
-    var leaderboardButtonNode: SKSpriteNode! = nil
-    var settingsButtonNode: SKSpriteNode! = nil
+    var playButtonNode: SKSpriteNode! = nil //A play button.
+    var leaderboardButtonNode: SKSpriteNode! = nil //A scoreboard button.
+    var settingsButtonNode: SKSpriteNode! = nil //A settings button.
     
+    //Initializes the scene.
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
         addButtons()
     }
     
+    //Adds the buttons to the scene.
     func addButtons(){
         let colorTheme = ["Green", "Blue", "Grey","Purple"]
         let color = colorTheme[Int.random(in: 0..<colorTheme.count)]
@@ -63,6 +65,7 @@ class MainMenu: SKScene {
         animate(button: settingsButtonNode)
     }
     
+    //Animates the passed button.
     func animate(button: SKSpriteNode) {
         let zoomIn = SKAction.resize(byWidth: 5.0, height: 5.0, duration: 0.5)
         let zoomOut = SKAction.resize(byWidth: -5.0, height: -5.0, duration: 0.5)
@@ -70,6 +73,7 @@ class MainMenu: SKScene {
         button.run(SKAction.repeatForever(zoomSequence))
     }
     
+    //Asks for the player name before a game run starts.
     func prepareSessionGame() {
         let alertController = UIAlertController(title: "Your name", message: "", preferredStyle: .alert)
         alertController.addTextField(configurationHandler: { texfield in
@@ -90,6 +94,7 @@ class MainMenu: SKScene {
         viewController?.present(alertController, animated: true, completion: nil)
     }
     
+    //Handles the actions of the buttons.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let loc = touch.location(in: self)

@@ -19,10 +19,12 @@ class GameOverViewController: UIViewController {
         setupValues()
     }
 
+    //Dismisses any view on top and goes back to the main menu.
     @IBAction func goToMainMenu(_ sender: Any) {
         view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
+    //Sets up the values for the game run that just finished.
     func setupValues() {
         scoreLabel.text = "You scored \(GameData.player.score) points"
         highscoreLabel.text = "Highscore: \(GameManager.getHighscore())"
