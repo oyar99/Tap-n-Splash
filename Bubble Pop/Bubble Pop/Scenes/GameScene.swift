@@ -8,6 +8,8 @@
 
 import SpriteKit
 import UIKit
+import AVFoundation
+
 class GameScene: SKScene {
     
     let scoreLabel = SKLabelNode()
@@ -267,6 +269,15 @@ class GameScene: SKScene {
     func updateTimeLabel() {
         timeLabel.text = "\(time) secs"
     }
+    
+    func playSplashSound() {
+        if SettingsManager.shouldPlaySoundEffects() {
+            let splashSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "Bubble1", ofType: "mp3")!)
+            let audioPlayer = try! AVAudioPlayer(contentsOf: splashSound as URL)
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+        }
+    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first! as UITouch
@@ -280,6 +291,8 @@ class GameScene: SKScene {
                 score += bubble.gamePoints
             }
             updateScoreLabel()
+            playSplashSound()
+            
             let index = bubblesOnScreen.firstIndex(of: bubble)
             bubblesOnScreen.remove(at: index!)
             bubble.removeFromParent()
