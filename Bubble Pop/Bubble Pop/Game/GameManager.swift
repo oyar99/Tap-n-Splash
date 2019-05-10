@@ -6,7 +6,7 @@
 //  Copyright © 2019 Jhon Stewar Rayo Mosquera. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //A static class which provides methods to save game data to the database.
 class GameManager {

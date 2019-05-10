@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SpriteKit
 
 class GameOverViewController: UIViewController {
 

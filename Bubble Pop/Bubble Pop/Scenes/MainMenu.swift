@@ -6,7 +6,6 @@
 //  Copyright © 2019 Jhon Stewar Rayo Mosquera. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
 
 class MainMenu: SKScene {
@@ -63,6 +62,10 @@ class MainMenu: SKScene {
         settingsButtonNode.position = CGPoint(x: (frame.maxX + playButtonNode.position.x) / 2, y: (frame.midY + frame.maxY) / 4)
         addChild(settingsButtonNode)
         animate(button: settingsButtonNode)
+        
+        let logo = SKSpriteNode(imageNamed: "Logo")
+        logo.position = CGPoint(x: frame.midX, y: frame.midY + 50)
+        addChild(logo)
     }
     
     //Animates the passed button.

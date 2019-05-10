@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SpriteKit
 
 //The view controller for the settings view.
 class SettingsControllerTableViewController: UITableViewController {
@@ -17,9 +16,6 @@ class SettingsControllerTableViewController: UITableViewController {
     
     @IBOutlet weak var bubblesSlider: UISlider!
     @IBOutlet weak var bubblesLabel: UILabel!
-    
-    
-    @IBOutlet weak var soundEffectsToggle: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +47,10 @@ class SettingsControllerTableViewController: UITableViewController {
         }
         bubblesSlider.value = bubbles
         bubblesLabel.text = String(Int(bubbles))
-        
-        soundEffectsToggle.setOn(SettingsManager.shouldPlaySoundEffects(), animated: false)
     }
     
     //Saves the specified settings.
     @IBAction func saveSettings(_ sender: UIButton) {
-        SettingsManager.toggleSoundEffects(state: soundEffectsToggle.isOn)
         SettingsManager.changeGameTime(newTime: Int(timeSlider.value))
         SettingsManager.changeNumberOfBubbles(newAmount: Int(bubblesSlider.value))
         let alertMesssage = UIAlertController(title: "Settings have been saved", message: "", preferredStyle: .alert)

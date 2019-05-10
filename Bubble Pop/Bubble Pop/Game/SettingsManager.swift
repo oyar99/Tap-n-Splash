@@ -6,7 +6,7 @@
 //  Copyright © 2019 Jhon Stewar Rayo Mosquera. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //A static class which provides methods to save settings to the database.
 class SettingsManager {
@@ -29,15 +29,5 @@ class SettingsManager {
     //Returns the maximum number of bubbles allowed on the screen at a time.
     static func getNumberOfBubbles() -> Int {
         return UserDefaults.standard.integer(forKey: "Bubbles")
-    }
-    
-    //Turns on/off sound effects.
-    static func toggleSoundEffects(state: Bool) {
-        UserDefaults.standard.set(state, forKey: "Sound")
-    }
-    
-    //Returns whether or not the app should play sound effects.
-    static func shouldPlaySoundEffects() -> Bool {
-        return UserDefaults.standard.bool(forKey: "Sound")
     }
 }

@@ -6,8 +6,6 @@
 //  Copyright © 2019 Jhon Stewar Rayo Mosquera. All rights reserved.
 //
 
-import Foundation
-
 //A class which represents a player
 struct Player: Codable {
     let name: String

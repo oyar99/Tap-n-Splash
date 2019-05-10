@@ -16,11 +16,6 @@
 		2BB5E60022670D070065DA87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5E5FE22670D070065DA87 /* LaunchScreen.storyboard */; };
 		2BB5E60C2267104C0065DA87 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5E60B2267104C0065DA87 /* MainMenu.swift */; };
 		3006147722826471009D55B9 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3006147622826471009D55B9 /* GameOverViewController.swift */; };
-		300B54732283D678003B1E1F /* Bubble1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 300B54722283D678003B1E1F /* Bubble1.mp3 */; };
-		300B54752283D68D003B1E1F /* HurryUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 300B54742283D68D003B1E1F /* HurryUp.mp3 */; };
-		300B54772283D69D003B1E1F /* One.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 300B54762283D69D003B1E1F /* One.mp3 */; };
-		300B547A2283D6B5003B1E1F /* Two.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 300B54782283D6B4003B1E1F /* Two.mp3 */; };
-		300B547B2283D6B5003B1E1F /* Three.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 300B54792283D6B5003B1E1F /* Three.mp3 */; };
 		308715C122803E85004F6936 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308715C022803E85004F6936 /* GameScene.swift */; };
 		30DB36D5227EF6B800B6E2BB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB36D4227EF6B800B6E2BB /* Player.swift */; };
 		30DB36D7227EF7B900B6E2BB /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB36D6227EF7B900B6E2BB /* Bubble.swift */; };
@@ -40,11 +35,6 @@
 		2BB5E60122670D070065DA87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BB5E60B2267104C0065DA87 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		3006147622826471009D55B9 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
-		300B54722283D678003B1E1F /* Bubble1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Bubble1.mp3; path = ../../../GameAssets/Audio/Bubble1.mp3; sourceTree = "<group>"; };
-		300B54742283D68D003B1E1F /* HurryUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = HurryUp.mp3; path = ../../../GameAssets/Audio/HurryUp.mp3; sourceTree = "<group>"; };
-		300B54762283D69D003B1E1F /* One.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = One.mp3; path = ../../../GameAssets/Audio/One.mp3; sourceTree = "<group>"; };
-		300B54782283D6B4003B1E1F /* Two.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Two.mp3; path = ../../../GameAssets/Audio/Two.mp3; sourceTree = "<group>"; };
-		300B54792283D6B5003B1E1F /* Three.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Three.mp3; path = ../../../GameAssets/Audio/Three.mp3; sourceTree = "<group>"; };
 		308715C022803E85004F6936 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		30DB36D4227EF6B800B6E2BB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		30DB36D6227EF7B900B6E2BB /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
@@ -82,7 +72,6 @@
 		2BB5E5F422670D060065DA87 /* Bubble Pop */ = {
 			isa = PBXGroup;
 			children = (
-				300B54712283D63B003B1E1F /* Audio */,
 				30DB36D3227EF67B00B6E2BB /* Game */,
 				2BB5E60A2267101D0065DA87 /* Scenes */,
 				2BB5E60922670E3C0065DA87 /* Configuration */,
@@ -129,18 +118,6 @@
 				308715C022803E85004F6936 /* GameScene.swift */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		300B54712283D63B003B1E1F /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				300B54792283D6B5003B1E1F /* Three.mp3 */,
-				300B54782283D6B4003B1E1F /* Two.mp3 */,
-				300B54762283D69D003B1E1F /* One.mp3 */,
-				300B54742283D68D003B1E1F /* HurryUp.mp3 */,
-				300B54722283D678003B1E1F /* Bubble1.mp3 */,
-			);
-			path = Audio;
 			sourceTree = "<group>";
 		};
 		30DB36D3227EF67B00B6E2BB /* Game */ = {
@@ -216,14 +193,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				300B54752283D68D003B1E1F /* HurryUp.mp3 in Resources */,
-				300B547A2283D6B5003B1E1F /* Two.mp3 in Resources */,
 				2BB5E60022670D070065DA87 /* LaunchScreen.storyboard in Resources */,
 				2BB5E5FD22670D070065DA87 /* Assets.xcassets in Resources */,
-				300B54772283D69D003B1E1F /* One.mp3 in Resources */,
-				300B54732283D678003B1E1F /* Bubble1.mp3 in Resources */,
 				2BB5E5FB22670D060065DA87 /* Main.storyboard in Resources */,
-				300B547B2283D6B5003B1E1F /* Three.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

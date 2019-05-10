@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import UIKit
 import AVFoundation
 
 class GameScene: SKScene {
@@ -23,19 +22,20 @@ class GameScene: SKScene {
     var bubblesOnScreen = [Bubble]() //List of current bubbles on screen.
     
     var time = SettingsManager.getGameTime() //The time the game will run for.
-    var spawnRate: TimeInterval = 1.0 //The amount of time it takes to refresh bubbles on the screen.
+    var spawnRate: TimeInterval = 2.0 //The amount of time it takes to refresh bubbles on the screen.
     var currentSpawnRate: TimeInterval = 0.0 //The time it has elapsed since the bubbles were last refreshed.
+    var currentElapsedTime: TimeInterval = 0.0 //The time it has elapsed since the last time the timer was updated.
     var updateTime: TimeInterval = 0.0 //The time the game has been running for.
     var isAnimating = false //Determines whether the clok image is animating or not.
     var isGameOver = false //Determines whether the game has finished or not.
-    var iscountingDown = true
+    var isCountingDown = true //Determines whether the counter is still on screen or not.
     
     
-    var upperWall = 0.0
+    var upperWall = 0.0 //Upper limit of the screen.
     let offsetBetweenBubbles: CGFloat = 20.0 //The minimum distance between bubbles at spawn time.
     
     let bubbleSpeed: CGFloat = 200.0 //The bubbles speed
-    var counter = 3
+    var counter = 3 //Sets a counter
     
     var score = 0 //The current score
     var latestTappedColor:BubbleSprite? //The color of the most recent tapped bubble.
@@ -46,55 +46,134 @@ class GameScene: SKScene {
         setupValues()
         setupPhysics()
         layoutScene()
-        startCounter()
+        countdown()
     }
     
+    //Sets up the physics environment.
+    func setupPhysics() {
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        self.physicsBody?.friction = 0
+        physicsWorld.contactDelegate = self
+    }
     
-    func startCounter() {
+    //Sets up default values if neccesary.
+    func setupValues() {
+        time = time == 0 ? 60: time
+        maxBubbles = maxBubbles == 0 ? 15:maxBubbles
+    }
+    
+    //Sets up values for different labels.
+    func setupLabels() {
+        let highscore = GameManager.getHighscore()
+        highscoreLabel.text = "Highscore: \(highscore)"
+        timeLabel.text = "\(time) secs"
+        scoreLabel.text = "Score: \(score)"
+    }
+    
+    //Layouts the GUI components of the game scene.
+    func layoutScene() {
+        backgroundColor = SKColor.white
+        let box = SKSpriteNode(color: UIColor.lightGray, size: CGSize(width: frame.size.width, height: frame.size.height / 12))
+        box.zPosition = 1
+        box.position = CGPoint(x: 0, y: frame.size.height - (2 * box.size.height))
+        box.anchorPoint = CGPoint(x: 0, y: 0)
+        upperWall = Double(box.position.y)
+        addChild(box)
+        
+        scoreLabel.fontName = "Baskerville-SemiBoldItalic"
+        scoreLabel.fontSize = 18.0
+        scoreLabel.verticalAlignmentMode = .top
+        scoreLabel.position = CGPoint(x: 50, y: box.size.height / 2)
+        box.addChild(scoreLabel)
+        
+        highscoreLabel.fontName = "Baskerville-SemiBoldItalic"
+        highscoreLabel.fontSize = 18.0
+        highscoreLabel.verticalAlignmentMode = .top
+        highscoreLabel.position = CGPoint(x: box.frame.midX, y: box.size.height / 2)
+        box.addChild(highscoreLabel)
+        
+        timeLabel.fontName = "Baskerville-SemiBoldItalic"
+        timeLabel.fontSize = 18.0
+        timeLabel.verticalAlignmentMode = .top
+        timeLabel.position = CGPoint(x: box.frame.maxX - 50, y: box.size.height / 2)
+        box.addChild(timeLabel)
+        
+        clockImage = SKSpriteNode(imageNamed: "clock")
+        clockImage.anchorPoint = CGPoint(x: 0.5, y: 0.8)
+        clockImage.position = CGPoint(x: timeLabel.frame.minX - 15,y: box.size.height / 2)
+        box.addChild(clockImage)
+        
         countdownLabel.text = String(counter)
-        countdownLabel.position = CGPoint(x: frame.minX, y: frame.minY)
-        countdownLabel.fontSize = 10
+        countdownLabel.fontName = "Baskerville-SemiBoldItalic"
+        countdownLabel.fontColor = UIColor.black
+        countdownLabel.position = CGPoint(x: frame.midX, y: frame.midY)
+        countdownLabel.fontSize = 80
         addChild(countdownLabel)
-        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(countdown), userInfo: nil, repeats: true)
     }
     
-    @objc func countdown() {
+    //Starts the execution of count which runs every second.
+    func countdown() {
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(count), userInfo: nil, repeats: true)
+    }
+    
+    //Counts from 3 to 1
+    @objc func count() {
+        counter -= 1
         if (counter > 0) {
-            counter -= 1
             countdownLabel.text = String(counter)
-            print(counter)
         } else {
-            iscountingDown = false
             countdownLabel.removeFromParent()
+            isCountingDown = false
         }
     }
     
     //Runs every frame.
     override func update(_ currentTime: TimeInterval) {
-        if !iscountingDown {
+        if !isCountingDown {
             let delta = currentTime - updateTime
             
             currentSpawnRate += delta
+            currentElapsedTime += delta
             
             if currentSpawnRate > spawnRate {
                 spawnBubbles()
-                time -= 1
-                updateTimeLabel()
                 currentSpawnRate = 0.0
             }
             
+            if currentElapsedTime > 1 {
+                time -= 1
+                updateTimeLabel()
+                currentElapsedTime = 0.0
+            }
+            
             updateTime = currentTime
+            
+            removeBubblesOutOfScreen()
             
             if time < 10 && !isAnimating {
                 animate(clockImage)
                 isAnimating = true
             }
             
-            if time == 0 && !isGameOver{
+            if time == 0 && !isGameOver {
                 gameOver()
                 isGameOver = true
             }
         }
+    }
+    
+    //Removes bubbles which have gone out of the screen.
+    func removeBubblesOutOfScreen() {
+        var temp = [Bubble]()
+        for bubble in bubblesOnScreen {
+            if bubble.position.y > CGFloat(upperWall) {
+                bubble.removeFromParent()
+            } else {
+                temp.append(bubble)
+            }
+        }
+        bubblesOnScreen = temp
     }
 
     //Finishes the current game run.
@@ -218,58 +297,6 @@ class GameScene: SKScene {
         bubble.physicsBody?.velocity = CGVector(dx: bubbleSpeed * randomDirectionX, dy: bubbleSpeed * randomDirectionY)
     }
     
-    //Sets up the physics environment.
-    func setupPhysics() {
-        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        self.physicsBody?.friction = 0
-        physicsWorld.contactDelegate = self
-    }
-    
-    //Sets up default values if neccesary.
-    func setupValues() {
-        time = time == 0 ? 60: time
-        maxBubbles = maxBubbles == 0 ? 15:maxBubbles
-    }
-    
-    //Sets up values for different labels.
-    func setupLabels() {
-        let highscore = GameManager.getHighscore()
-        highscoreLabel.text = "Highscore: \(highscore)"
-        timeLabel.text = "\(time) secs"
-        scoreLabel.text = "Score: \(score)"
-    }
-    
-    //Layouts the GUI components of the game scene.
-    func layoutScene() {
-        backgroundColor = SKColor.white
-        let box = SKSpriteNode(color: UIColor.lightGray, size: CGSize(width: frame.size.width, height: frame.size.height / 12))
-        box.zPosition = 1
-        box.position = CGPoint(x: 0, y: frame.size.height - 2 * box.size.height)
-        box.anchorPoint = CGPoint(x: 0, y: 0)
-        upperWall = Double(box.position.y)
-        addChild(box)
-        
-        scoreLabel.fontName = "Baskerville-SemiBoldItalic"
-        scoreLabel.fontSize = 18.0
-        scoreLabel.position = CGPoint(x: 50, y: box.size.height / 3)
-        box.addChild(scoreLabel)
-        
-        highscoreLabel.fontName = "Baskerville-SemiBoldItalic"
-        highscoreLabel.fontSize = 18.0
-        highscoreLabel.position = CGPoint(x: scoreLabel.position.x + scoreLabel.frame.size.width + 50, y: box.size.height / 3)
-        box.addChild(highscoreLabel)
-        
-        clockImage = SKSpriteNode(imageNamed: "clock")
-        clockImage.position = CGPoint(x: highscoreLabel.position.x + highscoreLabel.frame.size.width,y: box.size.height / 2)
-        box.addChild(clockImage)
-        
-        timeLabel.fontName = "Baskerville-SemiBoldItalic"
-        timeLabel.fontSize = 18.0
-        timeLabel.position = CGPoint(x: clockImage.position.x + clockImage.size.width + 30, y: box.size.height / 3)
-        box.addChild(timeLabel)
-    }
-    
     //Updates the score label with the current score.
     func updateScoreLabel() {
         scoreLabel.text = "Score: \(score)"
@@ -278,16 +305,6 @@ class GameScene: SKScene {
     //Updates the time label with the current remaining time.
     func updateTimeLabel() {
         timeLabel.text = "\(time) secs"
-    }
-    
-    //Plays a splash sound
-    func playSplashSound() {
-        if SettingsManager.shouldPlaySoundEffects() {
-            let splashSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "Bubble1", ofType: "mp3")!)
-            let audioPlayer = try! AVAudioPlayer(contentsOf: splashSound as URL)
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-        }
     }
 
     //Detects a touch on the screen and responds accordingly.
@@ -303,7 +320,6 @@ class GameScene: SKScene {
                 score += bubble.gamePoints
             }
             updateScoreLabel()
-            playSplashSound()
             
             let index = bubblesOnScreen.firstIndex(of: bubble)
             bubblesOnScreen.remove(at: index!)
