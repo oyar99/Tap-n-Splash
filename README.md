@@ -1,9 +1,4 @@
-# BubblePop
+# Bubble Game
 
 Action Puzzle Game for iOS
-
-### Instructions
-
-See the [Project Description](./docs/Project%202%20Description.md)
-
-Place your project files in this directory.
+Developed for Application Development iOS environment course at UTS - 2019.
