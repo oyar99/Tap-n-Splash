@@ -2,4 +2,6 @@
 
 Action Puzzle Game for iOS
 
-Developed for Application Development iOS environment course at UTS - 2019.
+Developed for __Application Development for the iOS environment__ course at UTS.
+
+Australia, Autumn - 2019
